@@ -514,36 +514,7 @@ The project should show that a from-scratch 200M model can beat generic tiny mod
 
 ---
 
-## 15. Unsloth Usage
-
-Unsloth is not recommended for full from-scratch pretraining.
-
-Use Unsloth only if the model can be made compatible with supported architectures and only for:
-
-- SFT experiments
-- LoRA/QLoRA ablations
-- DPO experiments
-
-For the main 200M model, full SFT is feasible and preferred.
-
----
-
-## 16. Kronecker Embeddings
-
-Kronecker embeddings are not part of the mainline model.
-
-Reason:
-
-- limited GPU budget
-- custom architecture complexity
-- compatibility risk with Hugging Face/Unsloth/export
-- harder debugging
-
-They may be explored later as a research ablation for rare API identifier handling, but the first working model should use standard learned embeddings with tied LM head.
-
----
-
-## 17. Recommended MVP Model Plan
+## 15. Recommended MVP Model Plan
 
 Use the main 24-layer architecture:
 
@@ -574,7 +545,7 @@ This is the first milestone. Only continue to the stronger 2B-3B token plan afte
 
 ---
 
-## 18. References
+## 16. References
 
 - MobileLLM: `https://arxiv.org/abs/2402.14905`
 - SmolLM2: `https://arxiv.org/abs/2502.02737`
