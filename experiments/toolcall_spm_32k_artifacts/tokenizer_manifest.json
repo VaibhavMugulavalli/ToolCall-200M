@@ -1,0 +1,43 @@
+{
+  "project": "ToolCall-200M",
+  "tokenizer_type": "SentencePiece BPE",
+  "vocab_size": 32000,
+  "byte_fallback": true,
+  "split_digits": false,
+  "normalization": "NFKC",
+  "corpus_size_bytes": 1610599096,
+  "source_weights": {
+    "fineweb_edu": 0.45,
+    "codeparrot": 0.2,
+    "openapi": 0.2,
+    "xlam": 0.1,
+    "synthetic": 0.05
+  },
+  "source_budgets_bytes": {
+    "fineweb_edu": 724775731,
+    "codeparrot": 322122547,
+    "openapi": 322122547,
+    "xlam": 161061273,
+    "synthetic": 80530636
+  },
+  "special_tokens": [
+    "<|system|>",
+    "<|user|>",
+    "<|assistant|>",
+    "<|tool_schema|>",
+    "<|tool_call|>",
+    "<|tool_result|>",
+    "<|json|>",
+    "<|end|>",
+    "<|endoftext|>"
+  ],
+  "files": {
+    "model": "toolcall_spm_32k.model",
+    "vocab": "toolcall_spm_32k.vocab"
+  },
+  "sha256": {
+    "model": "427581f5bf5a38ab9ce5b8900fead0780baae72cdef5e0b1761da6349302ff2b",
+    "vocab": "ea547900de5c110b208bf830c940aa226070a97fbb6e34a0bb44549b28b65df7"
+  },
+  "usage": "Use sentencepiece.SentencePieceProcessor(model_file=...) for pre-tokenization. The tokenizer must remain frozen after pretraining starts."
+}
