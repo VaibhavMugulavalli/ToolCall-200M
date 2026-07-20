@@ -1,6 +1,5 @@
 # Pilot Runs — Colab Direct Version
 
-This scaffold is designed to run in Google Colab without mounting Google Drive.
 
 The runtime layout is:
 
@@ -31,7 +30,6 @@ The runtime layout is:
      - `manifest_shards.jsonl`
      - `shards/shard_*.bin`
 
-No Google Drive mount is required.
 
 ## Recommended Colab flow
 
