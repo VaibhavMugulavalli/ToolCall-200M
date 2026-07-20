@@ -1,0 +1,12 @@
+{
+  "description": "Smoke pretraining shard build for ToolCall-200M. Use after validating 1M token build.",
+  "target_tokens": 50000000,
+  "shard_tokens": 10000000,
+  "mixture": {
+    "fineweb_edu": 0.45,
+    "codeparrot": 0.10,
+    "openapi": 0.20,
+    "xlam": 0.10,
+    "synthetic": 0.15
+  }
+}

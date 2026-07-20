@@ -1,0 +1,5 @@
+{"index": 0, "file": "shards/shard_00000.bin", "tokens": 10000000, "bytes": 20000000, "sha256": "00b1a693f9a4363e0ee1939c5d786e31aa1592a821987c1a97e95db7706dd069", "full": true}
+{"index": 1, "file": "shards/shard_00001.bin", "tokens": 10000000, "bytes": 20000000, "sha256": "1dd46f538ac6e75885bc1b2af609e0be056209679b51dc3a507f84eb6c8853a4", "full": true}
+{"index": 2, "file": "shards/shard_00002.bin", "tokens": 10000000, "bytes": 20000000, "sha256": "61f2e0af3f8abd8012cbea189bcb10b504ec741254556b2b3fd91dc5b4bb5d1b", "full": true}
+{"index": 3, "file": "shards/shard_00003.bin", "tokens": 10000000, "bytes": 20000000, "sha256": "4a0866c3b9ff9052e9939d2997fb2f1be3db3be4f43fc5461c30b3cd35c66947", "full": true}
+{"index": 4, "file": "shards/shard_00004.bin", "tokens": 10000000, "bytes": 20000000, "sha256": "fb062f32fb940d10d0ff5d8837558aba509a02846ca819eea87aae4c57712a65", "full": true}
