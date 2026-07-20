@@ -1,0 +1,105 @@
+{
+  "created_at_unix": 1784221397,
+  "tokenizer": "/content/toolcall_200m_next_pipeline/tokenizer/toolcall_spm_32k.model",
+  "tokenizer_sha256": "427581f5bf5a38ab9ce5b8900fead0780baae72cdef5e0b1761da6349302ff2b",
+  "vocab_size": 32000,
+  "dtype": "uint16",
+  "target_tokens": 1000000,
+  "actual_tokens": 1000000,
+  "shard_tokens": 1000000,
+  "mixture": {
+    "fineweb_edu": 0.45,
+    "codeparrot": 0.1,
+    "openapi": 0.2,
+    "synthetic": 0.25
+  },
+  "source_targets": {
+    "fineweb_edu": 450000,
+    "codeparrot": 100000,
+    "openapi": 200000,
+    "synthetic": 250000
+  },
+  "source_stats": [
+    {
+      "source": "fineweb_edu",
+      "target_tokens": 450000,
+      "written_tokens": 450000,
+      "documents_seen": 464,
+      "chunks_seen": 482,
+      "skipped_chunks": 0
+    },
+    {
+      "source": "codeparrot",
+      "target_tokens": 100000,
+      "written_tokens": 100000,
+      "documents_seen": 47,
+      "chunks_seen": 54,
+      "skipped_chunks": 0
+    },
+    {
+      "source": "openapi",
+      "target_tokens": 200000,
+      "written_tokens": 200000,
+      "documents_seen": 20,
+      "chunks_seen": 66,
+      "skipped_chunks": 0
+    },
+    {
+      "source": "synthetic",
+      "target_tokens": 250000,
+      "written_tokens": 250000,
+      "documents_seen": 2451,
+      "chunks_seen": 2451,
+      "skipped_chunks": 0
+    }
+  ],
+  "elapsed_seconds": 57.54236364364624,
+  "tokens_per_second": 17378.500580770266,
+  "shards": [
+    {
+      "index": 0,
+      "file": "shards/shard_00000.bin",
+      "tokens": 1000000,
+      "bytes": 2000000,
+      "sha256": "d5113261b3b88efd8e7f495abcec0d508249340792112d62f85747e63456dc82",
+      "full": true
+    }
+  ],
+  "decode_samples": [
+    {
+      "sample_index": 0,
+      "shard": "shard_00000.bin",
+      "start": 161943,
+      "tokens": 200,
+      "decoded_preview": "and \u03b1-chymotrypsin. Hinrichs and Rademacher (2005) showed that the denaturation kinetics of beta-lactoglobulin followed second order kinetics while for alpha-lactalbumin it was 2.5. Alpha- lactalbumin was more resistant to denaturation than beta- lactoglobulin. The activation volume for denaturation of beta- lactoglobulin was reported to decrease with increasing temperature, and the activation energy increased with pressure up to 200 MPa, beyond which it decreased. This demonstrated the unfolding of the protein molecules.\nDrake, Harison, Apslund, Barbosa-Canovas, and Swanson (1997) demonstrated that the percentage moisture and wet weight yield of cheese from pressure treated milk were higher than pasteurized or raw milk cheese. The microbial quality was comparable and some textural defects were reported due to the excess moisture content. Arias, Lopez"
+    },
+    {
+      "sample_index": 1,
+      "shard": "shard_00000.bin",
+      "start": 153643,
+      "tokens": 200,
+      "decoded_preview": "Although gallery locations on the website are updated regularly, there is no guarantee that this object will be on display on the day of your visit. Opportunities and Challenges in High Pressure Processing of Foods\nBy Rastogi, N K; Raghavarao, K S M S; Balasubramaniam, V M; Niranjan, K; Knorr, D\nConsumers increasingly demand convenience foods of the highest quality in terms of natural flavor and taste, and which are free from additives and preservatives. This demand has triggered the need for the development of a number of nonthermal approaches to food processing, of which high-pressure technology has proven to be very valuable. A number of recent publications have demonstrated novel and diverse uses of this technology. Its novel features, which include destruction of microorganisms at room temperature or lower, have made the technology commercially attractive. Enzymes and even spore forming bacteria can be inactivated by the"
+    },
+    {
+      "sample_index": 2,
+      "shard": "shard_00000.bin",
+      "start": 900881,
+      "tokens": 200,
+      "decoded_preview": "\n{\"decision\":\"ask_clarification\",\"tool_name\":\"files.read_file\",\"arguments\":{},\"missing_required_fields\":[\"path\"]}\n<|end|> <|user|>\nSearch my files for the deployment checklist.\n<|tool_schema|>\n{\"name\":\"tasks.complete_task\",\"description\":\"complete task\",\"parameters\":{\"type\":\"object\",\"properties\":{\"task_id\":{\"type\":\"string\"}},\"required\":[\"task_id\"]}}\n<|tool_call|>\n{\"decision\":\"ask_clarification\",\"tool_name\":\"tasks.complete_task\",\"arguments\":{},\"missing_required_fields\":[\"task_id\"]}\n<|end|> <|user|>\nSchedule the project review tomorrow at 3 PM.\n<|tool_schema|>\n{\"name\":\"tasks.complete_task\",\"description\":\"complete task\",\"parameters\":{\"type\":\"object\",\"properties\":{\"task_id\":{\"type\":\"string\"}},\"required\":[\"task_id\"]}}\n<|tool_call|>\n{\"decision\":\"call\",\"tool_name\":\"tasks.complete_task\",\"arguments\":{\"task_id"
+    },
+    {
+      "sample_index": 3,
+      "shard": "shard_00000.bin",
+      "start": 269804,
+      "tokens": 200,
+      "decoded_preview": "McDonald is scheduled to receive a half-share of the Benjamin Franklin Institute's annual physics prize. It is the latest in a long series of honours for Prof. McDonald, who was the director of the Sudbury Neutrino Observatory (SNO). As one of the oldest internationally recognized honours for research achievements, the Franklin Medal puts him on an altogether new plane, amidst what the French call les nobelisables.\nThe scientific prestige surrounding the SNO, which ceased collecting data in November of last year, is still growing. As an experiment, it performed exactly as promised, and in an environment of institutional cost-cutting, it did so at a cost (about $70-million) much lower than that required by other particle-physics projects around the world. For every plaudit the SNO receives, there are hundreds, perhaps thousands of Canadians eligible for a share of reflected glory. They ranged from the dozens of physicists who worked"
+    },
+    {
+      "sample_index": 4,
+      "shard": "shard_00000.bin",
+      "start": 29365,
+      "tokens": 200,
+      "decoded_preview": ". On the one hand, the north might not want to draw a new boundary where the south gets all of the resource wealth, a potential cause for even more strife. On the other hand, some see oil as a potential area that could keep the two sides friendly if they do end up splitting. Mutual desire for the oil wealth may bring the two sides together diplomatically if the split ends up happening peacefully.\nAs you can see, this situation is extremely complex, far more so than the south simply saying \u201cwe want to secede\u201d and secession then happening. To better understand the context, one needs to consider the past, but one should also consider the future: what will happen if the current nation of Sudan does in fact split? I am wondering particularly about those who have their roots in the south but live in the north. Since the referendum was announced, many of these people have moved back to the south, but a fair number still remain in"
+    }
+  ]
+}

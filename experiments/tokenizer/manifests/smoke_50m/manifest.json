@@ -1,0 +1,137 @@
+{
+  "created_at_unix": 1784562091,
+  "tokenizer": "/content/toolcall_200m_next_pipeline/tokenizer/toolcall_spm_32k.model",
+  "tokenizer_sha256": "427581f5bf5a38ab9ce5b8900fead0780baae72cdef5e0b1761da6349302ff2b",
+  "vocab_size": 32000,
+  "dtype": "uint16",
+  "target_tokens": 50000000,
+  "actual_tokens": 50000000,
+  "shard_tokens": 10000000,
+  "mixture": {
+    "fineweb_edu": 0.45,
+    "codeparrot": 0.1,
+    "openapi": 0.2,
+    "synthetic": 0.25
+  },
+  "source_targets": {
+    "fineweb_edu": 22500000,
+    "codeparrot": 5000000,
+    "openapi": 10000000,
+    "synthetic": 12500000
+  },
+  "source_stats": [
+    {
+      "source": "fineweb_edu",
+      "target_tokens": 22500000,
+      "written_tokens": 22500000,
+      "documents_seen": 20934,
+      "chunks_seen": 22289,
+      "skipped_chunks": 0
+    },
+    {
+      "source": "codeparrot",
+      "target_tokens": 5000000,
+      "written_tokens": 5000000,
+      "documents_seen": 1753,
+      "chunks_seen": 2236,
+      "skipped_chunks": 0
+    },
+    {
+      "source": "openapi",
+      "target_tokens": 10000000,
+      "written_tokens": 10000000,
+      "documents_seen": 55,
+      "chunks_seen": 2728,
+      "skipped_chunks": 0
+    },
+    {
+      "source": "synthetic",
+      "target_tokens": 12500000,
+      "written_tokens": 12500000,
+      "documents_seen": 122731,
+      "chunks_seen": 122731,
+      "skipped_chunks": 0
+    }
+  ],
+  "elapsed_seconds": 94.37189245223999,
+  "tokens_per_second": 529818.7701947818,
+  "shards": [
+    {
+      "index": 0,
+      "file": "shards/shard_00000.bin",
+      "tokens": 10000000,
+      "bytes": 20000000,
+      "sha256": "00b1a693f9a4363e0ee1939c5d786e31aa1592a821987c1a97e95db7706dd069",
+      "full": true
+    },
+    {
+      "index": 1,
+      "file": "shards/shard_00001.bin",
+      "tokens": 10000000,
+      "bytes": 20000000,
+      "sha256": "1dd46f538ac6e75885bc1b2af609e0be056209679b51dc3a507f84eb6c8853a4",
+      "full": true
+    },
+    {
+      "index": 2,
+      "file": "shards/shard_00002.bin",
+      "tokens": 10000000,
+      "bytes": 20000000,
+      "sha256": "61f2e0af3f8abd8012cbea189bcb10b504ec741254556b2b3fd91dc5b4bb5d1b",
+      "full": true
+    },
+    {
+      "index": 3,
+      "file": "shards/shard_00003.bin",
+      "tokens": 10000000,
+      "bytes": 20000000,
+      "sha256": "4a0866c3b9ff9052e9939d2997fb2f1be3db3be4f43fc5461c30b3cd35c66947",
+      "full": true
+    },
+    {
+      "index": 4,
+      "file": "shards/shard_00004.bin",
+      "tokens": 10000000,
+      "bytes": 20000000,
+      "sha256": "fb062f32fb940d10d0ff5d8837558aba509a02846ca819eea87aae4c57712a65",
+      "full": true
+    }
+  ],
+  "decode_samples": [
+    {
+      "sample_index": 0,
+      "shard": "shard_00004.bin",
+      "start": 9588936,
+      "tokens": 200,
+      "decoded_preview": "name\":\"tasks.create_task\",\"arguments\":{\"title\":\"Project review\",\"deadline\":\"2026-07-24\",\"priority\":\"high\"},\"missing_required_fields\":[]}\n<|end|> <|user|>\nFind unread emails from HR about the internship.\n<|tool_schema|>\n{\"name\":\"email.draft_email\",\"description\":\"draft email\",\"parameters\":{\"type\":\"object\",\"properties\":{\"recipient\":{\"type\":\"string\"},\"subject\":{\"type\":\"string\"},\"body\":{\"type\":\"string\"}},\"required\":[\"recipient\",\"subject\",\"body\"]}}\n<|tool_call|>\n{\"decision\":\"call\",\"tool_name\":\"email.draft_email\",\"arguments\":{\"recipient\":\"hr@example.com\",\"subject\":\"Joining confirmation\",\"body\":\"I confirm that I can join next Monday.\"},\"missing_required_fields\":[]}\n<|end|> <|user|>\nSearch my files for the deployment checklist.\n<|tool_schema|>\n{\"name\":\"github.create_issue\",\"description\":\"create issue\",\"parameters\":{\"type\":\"object\",\"properties\":{\"title\":{\"type\":\"string\"},\"body\":{\"type\":\"string\"},\"labels\":{\"type\":\"array\"}},\""
+    },
+    {
+      "sample_index": 1,
+      "shard": "shard_00003.bin",
+      "start": 3622687,
+      "tokens": 200,
+      "decoded_preview": "\n                      type: object\n                SendResponse:\n                  default: false\n                  nullable: true\n                  type: boolean\n              type: object\n        description: Action parameters\n        required: true\n      responses:\n        \"204\":\n          description: Success\n        4XX:\n          $ref: \"#/components/responses/error\"\n        5XX:\n          $ref: \"#/components/responses/error\"\n      summary: Invoke action tentativelyAccept\n      tags:\n        - me.Actions\n      x-ms-docs-operation-type: action\n    x-ms-docs-grouped-path:\n      - /me/calendar/calendarView/{event-id}/exceptionOccurrences/{event-id1}/microsoft.graph.tentativelyAccept\n      - /me/calendar/calendarView/{event-id}/instances/{event-id1}/exceptionOccurrences/{event-id2}/microsoft.graph.tentativelyAccept\n      - /"
+    },
+    {
+      "sample_index": 2,
+      "shard": "shard_00001.bin",
+      "start": 537761,
+      "tokens": 200,
+      "decoded_preview": "ize guidelines for this type of research, Kawaoka said.\nAs a result, research on H5N1 transmission that uses funds from the U.S. National Institutes of Health cannot yet resume. This includes Kawaoka's own transmission work and some of Fouchier's research.\nRelated on LiveScience and MNN: Elementary Principles of Chemical Processes | Edition: 4\nAuthor: Richard M. Felder, Ronald W. Rousseau, Lisa G. Bullard\npublisher Date: 07/27/2015\nSchools: University of Houston,Rochester Institute of Technology,University of Tennessee at Chattanooga,Tufts University,Worcester Polytechnic Institute,Texas A&M University,University of Michigan -Ann Arbor North,Unversity of Mississippi,Penn State University,Clemson University,Johns Hopkins University,University Of Pennsylv"
+    },
+    {
+      "sample_index": 3,
+      "shard": "shard_00001.bin",
+      "start": 2213166,
+      "tokens": 200,
+      "decoded_preview": "iley & Sons, 2005, ISBN 0-471-73876-X.\n- Matthew Yeomans, Oil: Anatomy of an Industry (New Press, 2004), ISBN 1-56584-885-3.\n- Smith, GO (1920): Where the World Gets Its Oil: National Geographic, February 1920, pp 181\u2013202\n- Marius Vassiliou, Historical Dictionary of the Petroleum Industry. Lanham, MD: Scarecrow Press (Rowman & Littlefield), 700pp. ISBN 0-8108-5993-9.\n- Ronald W. Ferrier; J. H. Bamberg (1982). The History of the British Petroleum Company: Volume 1, The Developing Years, 1901-1932. Cambridge UP. pp. A\u201313.\n- Miryusif Mirbabayev, Concise History of Azerbaijani Oil. Baku, Azerneshr, (2008), 340pp"
+    },
+    {
+      "sample_index": 4,
+      "shard": "shard_00001.bin",
+      "start": 5091748,
+      "tokens": 200,
+      "decoded_preview": ", and the salts precipitate when they intrude cooler rock laying above. Thus ore deposits formed, and still do, on Newguinea. On Lihir island, gold is mined from a volcano's caldera, that is still warm.\nThe bronze age, the iron age, the idea of metals at all, did not reach the Australian continent and the Pacific islands, till they were introduced by European discoverers and colonists. The idea of mining, however, must have been quite familiar to Papuans. Stones suitable for tools are not simply picked from the ground. Harrer describes the method to recover proper stones at a quarry by the Dani people. The Dani live west of the Star Mountains, at Harrer's time a Dutch colony. A rock was heated by fire at its weak point, for several days, if necessary. Then it was shock-cooled with water, that inner tensions split it to pieces of convenient size"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+# Generated token shards
+data/tokenized/**/*.bin
+data/tokenized/**/shards/
+**/shards/
+**/*.bin
+
+# Local dataset/cache folders
+.cache/
+pipeline/.cache/
+data/.cache/
+
+# Archives generated/downloaded during experiments
+archives/
+*.zip
+*.tar
+*.tar.gz
+
+# Training outputs
+runs/
+checkpoints/
+wandb/
+lightning_logs/
+
+# Python and notebook cache
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Temporary extraction folders
+tmp/
+_tmp/
+*_extract/
