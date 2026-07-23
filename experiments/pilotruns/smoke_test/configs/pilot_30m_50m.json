@@ -1,0 +1,22 @@
+{
+  "run_name": "pilot_30m_50m",
+  "description": "Slightly larger pilot after tiny_smoke_50m passes. Still not the final ToolCall-200M model.",
+  "data_dir": "../tokenizer/data/tokenized/smoke_50m",
+  "tokenizer": "../tokenizer/artifacts/tokenizer/toolcall_spm_32k.model",
+  "out_dir": "runs/pilot_30m_50m",
+  "seq_len": 1024,
+  "batch_size": 4,
+  "grad_accum": 8,
+  "max_steps": 2000,
+  "eval_interval": 100,
+  "save_interval": 500,
+  "learning_rate": 0.0003,
+  "model": {
+    "hidden_size": 384,
+    "num_layers": 8,
+    "num_heads": 6,
+    "num_kv_heads": 2,
+    "intermediate_size": 1024,
+    "dropout": 0.0
+  }
+}

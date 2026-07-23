@@ -1,0 +1,24 @@
+# Training outputs
+runs/**
+!runs/.gitkeep
+
+# Checkpoints and model artifacts
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Experiment trackers
+wandb/
+lightning_logs/
+tensorboard/
+
+# Python/cache
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Temporary files
+tmp/
+_tmp/
+*.log
