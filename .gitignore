@@ -1,0 +1,17 @@
+# Ignore large archives (GitHub 100MB limit)
+*.zip
+*.tar
+*.tar.gz
+
+# Ignore model checkpoint directories and data
+scaling_470m/
+checkpoints/
+runs/
+*.bin
+*.pth
+*.pt
+
+# Python caches
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
