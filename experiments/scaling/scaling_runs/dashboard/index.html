@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>ToolCall Scaling Monitor</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <header>
+        <div>
+          <p class="eyebrow">TOOLCALL-200M</p>
+          <h1>Scaling Monitor</h1>
+          <p class="subtitle">Training health, optimization and compute in one view.</p>
+        </div>
+        <div class="controls">
+          <label>
+            Run
+            <select id="run-select"></select>
+          </label>
+          <label>
+            Smoothing
+            <input id="smoothing" type="range" min="1" max="50" value="10" />
+            <span id="smoothing-value">10</span>
+          </label>
+          <label class="check">
+            <input id="auto-refresh" type="checkbox" checked />
+            Auto-refresh
+          </label>
+          <button id="refresh-button" type="button">Refresh</button>
+        </div>
+      </header>
+
+      <section class="status-line">
+        <span id="status-pill" class="pill">Waiting</span>
+        <span id="updated-at">No run loaded</span>
+      </section>
+
+      <section class="progress-panel">
+        <div class="progress-copy">
+          <span>Token progress</span>
+          <strong id="progress-label">0 / 0</strong>
+        </div>
+        <div class="progress-track"><div id="progress-bar"></div></div>
+      </section>
+
+      <section class="cards">
+        <article><span>Step</span><strong id="card-step">—</strong></article>
+        <article><span>Train loss</span><strong id="card-loss">—</strong></article>
+        <article><span>Validation loss</span><strong id="card-val-loss">—</strong></article>
+        <article><span>Perplexity</span><strong id="card-perplexity">—</strong></article>
+        <article><span>Throughput</span><strong id="card-throughput">—</strong></article>
+        <article><span>ETA</span><strong id="card-eta">—</strong></article>
+      </section>
+
+      <section class="charts">
+        <article class="chart wide">
+          <div class="chart-heading">
+            <div><span>Optimization</span><h2>Loss vs. tokens</h2></div>
+            <p>Raw, smoothed and held-out cross-entropy</p>
+          </div>
+          <canvas id="loss-chart"></canvas>
+        </article>
+        <article class="chart">
+          <div class="chart-heading">
+            <div><span>Schedule</span><h2>Learning rate and gradient norm</h2></div>
+          </div>
+          <canvas id="optimization-chart"></canvas>
+        </article>
+        <article class="chart">
+          <div class="chart-heading">
+            <div><span>Performance</span><h2>Throughput and step time</h2></div>
+          </div>
+          <canvas id="throughput-chart"></canvas>
+        </article>
+        <article class="chart wide">
+          <div class="chart-heading">
+            <div><span>Hardware</span><h2>GPU memory</h2></div>
+            <p>Allocated and reserved CUDA memory</p>
+          </div>
+          <canvas id="memory-chart"></canvas>
+        </article>
+      </section>
+
+      <section id="empty-state" class="empty hidden">
+        No metrics are available yet. Start a training run and refresh.
+      </section>
+      <p id="error-message" class="error hidden"></p>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
+

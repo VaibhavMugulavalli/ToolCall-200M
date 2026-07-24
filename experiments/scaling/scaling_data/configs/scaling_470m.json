@@ -1,0 +1,80 @@
+{
+  "dataset_name": "scaling_470m_toolcall_mix",
+  "seed": 20260721,
+  "vocab_size": 32000,
+  "train_tokens": 470000000,
+  "validation_general_tokens": 5000000,
+  "validation_structured_tokens": 1000000,
+  "validation_fraction": 0.01,
+  "shard_tokens": 25000000,
+  "min_document_chars": 120,
+  "max_document_tokens": 16384,
+  "progress_every_tokens": 5000000,
+  "category_weights": {
+    "clean_english_general": 0.45,
+    "structured_text": 0.20,
+    "api_docs_tool_schemas": 0.15,
+    "code": 0.10,
+    "task_action_instruction": 0.10
+  },
+  "sources": [
+    {
+      "name": "general_fineweb_edu",
+      "category": "clean_english_general",
+      "kind": "huggingface",
+      "dataset": "HuggingFaceFW/fineweb-edu",
+      "subset": "sample-10BT",
+      "split": "train",
+      "text_field": "text",
+      "weight": 0.45,
+      "revision": "main",
+      "license_note": "FineWeb-Edu sample; see the upstream dataset card and ODC-By terms."
+    },
+    {
+      "name": "structured_openapi",
+      "category": "structured_text",
+      "kind": "openapi_raw",
+      "weight": 0.20,
+      "revision": "main",
+      "license_note": "OpenAPI JSON/YAML and schema views from APIs-guru/openapi-directory; inspect upstream per-definition provenance."
+    },
+    {
+      "name": "api_tool_docs",
+      "category": "api_docs_tool_schemas",
+      "kind": "openapi_docs",
+      "weight": 0.15,
+      "revision": "main",
+      "license_note": "Deterministic endpoint documentation derived from APIs-guru OpenAPI definitions."
+    },
+    {
+      "name": "codeparrot_clean_permissive",
+      "category": "code",
+      "kind": "huggingface",
+      "dataset": "codeparrot/codeparrot-clean",
+      "subset": null,
+      "split": "train",
+      "text_field": "content",
+      "weight": 0.10,
+      "revision": "main",
+      "license_field": "license",
+      "allowed_licenses": [
+        "mit",
+        "apache-2.0",
+        "bsd-3-clause",
+        "bsd-2-clause",
+        "isc",
+        "cc0-1.0",
+        "unlicense"
+      ],
+      "license_note": "CodeParrot Clean rows filtered to the listed permissive licenses; retain upstream provenance metadata."
+    },
+    {
+      "name": "synthetic_tool_actions",
+      "category": "task_action_instruction",
+      "kind": "openapi_actions",
+      "weight": 0.10,
+      "revision": "main",
+      "license_note": "Deterministic ToolCall task/action examples derived from OpenAPI operations plus local templates."
+    }
+  ]
+}

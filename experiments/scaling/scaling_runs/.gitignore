@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+
+# Training outputs and local data
+runs/*
+!runs/.gitkeep
+data/*
+!data/.gitkeep
+
+# Large model artifacts
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# Local logs
+*.log
