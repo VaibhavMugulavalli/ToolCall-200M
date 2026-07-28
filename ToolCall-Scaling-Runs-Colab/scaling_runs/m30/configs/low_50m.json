@@ -1,0 +1,43 @@
+{
+  "run_name": "m30_low_50m_seed42",
+  "model": {
+    "vocab_size": 32000,
+    "sequence_length": 512,
+    "num_layers": 10,
+    "num_heads": 6,
+    "hidden_size": 384,
+    "mlp_ratio": 4,
+    "rope_base": 10000.0,
+    "rms_norm_epsilon": 1e-5,
+    "dropout": 0.0,
+    "tie_embeddings": true
+  },
+  "data": {
+    "train_dir": "data/scaling_470m/train",
+    "validation_dir": "data/scaling_470m/validation_general",
+    "structured_validation_dir": "data/scaling_470m/validation_structured",
+    "token_dtype": "uint16"
+  },
+  "training": {
+    "target_tokens": 50000000,
+    "micro_batch_size": 8,
+    "gradient_accumulation_steps": 4,
+    "max_learning_rate": 0.0003,
+    "minimum_learning_rate": 0.00003,
+    "warmup_fraction": 0.02,
+    "weight_decay": 0.1,
+    "adam_beta1": 0.9,
+    "adam_beta2": 0.95,
+    "adam_epsilon": 1e-8,
+    "gradient_clip": 1.0,
+    "log_every_steps": 10,
+    "evaluate_every_steps": 500,
+    "validation_batches": 64,
+    "final_validation_batches": 256,
+    "checkpoint_every_steps": 1000,
+    "keep_last_checkpoints": 2,
+    "seed": 42,
+    "precision": "fp16",
+    "compile_model": false
+  }
+}
