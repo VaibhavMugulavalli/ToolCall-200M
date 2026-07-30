@@ -338,6 +338,11 @@ class Trainer:
                 loss = self.model(inputs, labels=targets)["loss"]
             total_loss += float(loss.item())
         mean_loss = total_loss / batch_count
+        if not math.isfinite(mean_loss):
+            raise FloatingPointError(
+                f"Non-finite validation loss for split {split!r} "
+                f"at step {self.step}: {mean_loss}"
+            )
         record = {
             "type": "validation",
             "split": split,
@@ -374,7 +379,12 @@ class Trainer:
             "progress/tokens_seen": "tokens_seen",
         }
         for tag, key in fields.items():
-            self.tensorboard.add_scalar(tag, record[key], step)
+            value = record.get(key)
+            if value is None:
+                continue
+            numeric = float(value)
+            if math.isfinite(numeric):
+                self.tensorboard.add_scalar(tag, numeric, step)
 
     def _gpu_memory(self) -> tuple[float, float]:
         if self.device.type != "cuda":
@@ -407,8 +417,18 @@ class Trainer:
             "parameter_count": self.parameter_count,
             "non_embedding_parameter_count": self.non_embedding_parameter_count,
             "estimated_training_flops": 6 * self.parameter_count * self.tokens_seen,
-            "last_train_loss": last_train_loss,
-            "loss_ema": self.loss_ema,
+            "last_train_loss": (
+                float(last_train_loss)
+                if last_train_loss is not None
+                and math.isfinite(float(last_train_loss))
+                else None
+            ),
+            "loss_ema": (
+                float(self.loss_ema)
+                if self.loss_ema is not None
+                and math.isfinite(float(self.loss_ema))
+                else None
+            ),
             "best_validation_loss": (
                 None
                 if not math.isfinite(self.best_validation_loss)
@@ -489,6 +509,7 @@ class Trainer:
                 should_log = self.step == 1 or self.step % training.log_every_steps == 0
                 if should_log:
                     allocated_gib, reserved_gib = self._gpu_memory()
+                    gradient_norm_value = float(gradient_norm.item())
                     record = {
                         "type": "train",
                         "step": self.step,
@@ -498,7 +519,14 @@ class Trainer:
                         "loss": last_loss,
                         "loss_ema": self.loss_ema,
                         "learning_rate": learning_rate,
-                        "gradient_norm": float(gradient_norm.item()),
+                        "gradient_norm": (
+                            gradient_norm_value
+                            if math.isfinite(gradient_norm_value)
+                            else None
+                        ),
+                        "gradient_overflow": not math.isfinite(
+                            gradient_norm_value
+                        ),
                         "tokens_per_second": (
                             self.config.tokens_per_optimizer_step / step_seconds
                         ),
