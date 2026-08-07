@@ -1,0 +1,34 @@
+[
+  {
+    "label":"M30 standard",
+    "archive":"m30_standard_470m_seed42.zip",
+    "status":"completed",
+    "parameter_count":29990784,
+    "target_tokens":469000000,
+    "tokens_seen":469008384,
+    "general_loss":2.8507477129,
+    "general_ppl":17.3007129716,
+    "structured_loss":2.0980659552,
+    "structured_ppl":8.1503914368,
+    "train_loss_ema":2.662870849,
+    "median_tps":40437.8429161523,
+    "training_hours":3.2079682691,
+    "peak_vram":3.15234375
+  },
+  {
+    "label":"M60 SwiGLU + GQA (resumed)",
+    "archive":"m60_swiglu_gqa_470m_seed42_resume.zip",
+    "status":"paused",
+    "parameter_count":60439040,
+    "target_tokens":469000000,
+    "tokens_seen":468697088,
+    "general_loss":2.3520548083,
+    "general_ppl":10.5071377118,
+    "structured_loss":2.1073072497,
+    "structured_ppl":8.2260607071,
+    "train_loss_ema":2.5077675363,
+    "median_tps":19850.8065286035,
+    "training_hours":6.5850722094,
+    "peak_vram":2.7890625
+  }
+]
