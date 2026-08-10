@@ -1,8 +1,9 @@
 # ToolCall-200M final 4B corpus — CPU Colab workflow
 
-This package starts the final pretraining-corpus build for ToolCall-200M. The
-first notebook performs the finite-source capacity audit that must precede the
-8 GB shard build.
+This package contains both stages of the final pretraining-corpus build for
+ToolCall-200M. Stage 1 audits finite-source capacity. Phase 2 uses the approved
+audit result to produce the approximately 8.03 GB training corpus entirely in
+CPU Colab sessions.
 
 ## Locked numerical target
 
@@ -22,21 +23,21 @@ Every 512-token prediction sequence consumes 513 stored source tokens because
 of the one-token causal shift. The physical corpus therefore has to be slightly
 larger than the prediction budget.
 
-## Initial mixture caps
+## Approved Phase 2 allocation
 
-| Category | Cap | Nominal prediction tokens |
+| Source | Exact stored tokens | Final fraction |
 | --- | ---: | ---: |
-| FineWeb-Edu general/technical text | 60% | 2.4B |
-| Permissively licensed code | 15% | 600M |
-| Raw/canonical OpenAPI structured text | 10% | 400M |
-| API documentation and schemas | 10% | 400M |
-| Synthetic tool actions | 5% | 200M |
+| FineWeb-Edu general/technical text | 2,632,512,585 | 65.6842% |
+| Permissively licensed CodeParrot Clean | 658,128,146 | 16.4210% |
+| Raw/canonical OpenAPI structured text | 400,783,507 | 10.0000% |
+| API documentation and schemas | 197,553,288 | 4.9292% |
+| Synthetic tool actions | 118,857,546 | 2.9656% |
+| **Total** | **4,007,835,072** | **100%** |
 
-The three finite OpenAPI-derived values are caps, not targets that may be filled
-with duplicated documents. Stage 1 exhaustively measures their actual unique
-capacity. If a finite source falls short, the provisional policy assigns 80%
-of the shortfall to FineWeb-Edu and 20% to permissively licensed code. That
-redistribution still requires review before Stage 2.
+Stage 1 measured a 284,764,427-token finite-source shortfall. The approved
+policy assigned 80% of that shortfall to FineWeb-Edu and 20% to permissively
+licensed code. `configs/toolcall_4b_approved.json` freezes the exact result and
+binds it to the audit-summary, tokenizer, and source-revision hashes.
 
 ## Why Stage 1 is mandatory
 
@@ -57,7 +58,7 @@ For each finite source it reports:
 Near-duplicate matching is diagnostic during Stage 1. It does not delete data.
 The final deduplication policy is frozen only after reviewing the report.
 
-## Run in CPU Colab
+## Stage 1: capacity audit
 
 1. Download this package and separately open
    `notebooks/01_audit_toolcall_4b_sources_cpu_colab.ipynb` in Colab.
@@ -91,16 +92,59 @@ Keeping durable stage checkpoints is therefore necessary even though the
 computation itself is entirely CPU Colab.
 
 Large Hugging Face caches and the APIs-guru clone remain under `/content` to
-avoid slow random I/O on Drive. Stage 2 will write completed local shard files
-to persistent storage only after checksum validation.
+avoid slow random I/O on Drive.
+
+## Phase 2: build the corpus
+
+1. Open `notebooks/02_build_toolcall_4b_corpus_cpu_colab.ipynb` in Colab.
+2. Select **Runtime → Change runtime type → CPU**.
+3. Run all cells and upload the latest project ZIP.
+4. Mount the same Google Drive used by Stage 1.
+5. If asked, upload the frozen tokenizer and the Stage 1 capacity summary.
+6. Leave the build cell running. It processes as many stages as fit within the
+   configured session budget and pauses at a durable checkpoint.
+7. After a disconnect or clean pause, start a new CPU runtime and rerun all
+   cells. Completed stages are verified and skipped.
+
+Persistent Phase 2 state is stored under:
+
+```text
+MyDrive/ToolCall-200M/toolcall_4b_corpus/phase2/
+├── staging/                         # source shards, cursors, hashes, progress
+├── finalization_plan.json           # immutable deterministic interleave plan
+└── final/toolcall_4b/               # Kaggle-ready corpus when COMPLETE exists
+```
+
+The finalizer moves staged shards rather than making a second 8 GB copy. Do not
+manually move or delete files under `staging/`; the resume transaction and
+finalization plan are authoritative.
+
+### Recovery guarantees
+
+- Documents are normalized and exact-deduplicated per source using the first
+  128 bits of SHA-256, matching the Stage 1 policy.
+- A Hugging Face row and its streaming cursor are committed together through a
+  parent/worker acknowledgement handshake.
+- Shard data, dedup hashes, and the cursor are copied first; `progress.json` is
+  written last. After a disconnect, unreferenced ahead files are ignored.
+- General validation is a deterministic 1% hash-selected FineWeb-Edu holdout
+  and those documents are excluded from the FineWeb training quota.
+- `COMPLETE` is written only after exact token counts, file sizes, tokenizer
+  digest, and every shard checksum pass.
 
 ## Included files
 
 ```text
 configs/toolcall_4b.json
+configs/toolcall_4b_approved.json
+artifacts/approval/toolcall_4b_capacity_summary.json
+artifacts/approval/toolcall_4b_capacity_summary.csv
 notebooks/01_audit_toolcall_4b_sources_cpu_colab.ipynb
+notebooks/02_build_toolcall_4b_corpus_cpu_colab.ipynb
 scripts/audit_source_capacity.py
 scripts/merge_capacity_reports.py
+scripts/phase2_build_corpus.py
+scripts/hf_stream_worker.py
 scripts/check_sources.py
 scripts/build_scaling_data.py
 scripts/validate_data_runtime.py
@@ -124,6 +168,14 @@ toolcall_4b_capacity_summary.json
 toolcall_4b_capacity_summary.csv
 ```
 
-Stage 2 will use the reviewed report to freeze exact source allocations, build
-restart-safe 10M-token source shards, deterministically interleave them, and
-produce the final verified Kaggle-ready corpus.
+## Phase 2 completion condition
+
+The build is ready for Kaggle only when the final checksum pass succeeds and
+this marker exists:
+
+```text
+phase2/final/toolcall_4b/COMPLETE
+```
+
+Expected exact split totals are 4,007,835,072 training tokens, 5,000,000
+general-validation tokens, and 2,000,000 structured-validation tokens.

@@ -81,9 +81,9 @@ with zipfile.ZipFile(archive) as zf:
     zf.extractall(workspace)
 
 candidates = [
-    path.parent
+    path.parent.parent
     for path in workspace.rglob("configs/toolcall_4b.json")
-    if (path.parent / "scripts/audit_source_capacity.py").is_file()
+    if (path.parent.parent / "scripts/audit_source_capacity.py").is_file()
 ]
 if len(candidates) != 1:
     raise RuntimeError(f"Expected one ToolCall 4B project, found {len(candidates)}")

@@ -8,6 +8,7 @@ import gc
 import http.client
 import json
 import os
+import pickle
 import sys
 import time
 from pathlib import Path
@@ -69,6 +70,17 @@ def retry_delay(attempt: int, initial: float, maximum: float) -> float:
     return min(maximum, initial * (2 ** max(0, attempt - 1)))
 
 
+def atomic_pickle(path: Path, value: object) -> None:
+    """Persist a datasets streaming cursor without exposing a partial file."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    with temporary.open("wb") as handle:
+        pickle.dump(value, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(temporary, path)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", required=True)
@@ -83,6 +95,16 @@ def main() -> None:
     parser.add_argument("--max-reconnects", type=int, default=100)
     parser.add_argument("--retry-initial-seconds", type=float, default=2.0)
     parser.add_argument("--retry-max-seconds", type=float, default=60.0)
+    parser.add_argument("--resume-state")
+    parser.add_argument("--checkpoint-state")
+    parser.add_argument(
+        "--interactive-checkpoints",
+        action="store_true",
+        help=(
+            "Wait for ACK/CHECKPOINT/STOP after every emitted row. This lets the "
+            "Phase 2 parent commit a shard and the exact HF cursor together."
+        ),
+    )
     args = parser.parse_args()
 
     if args.max_retries < 0 or args.max_reconnects < 0:
@@ -94,6 +116,20 @@ def main() -> None:
     cache_dir.mkdir(parents=True, exist_ok=True)
     source_name = args.source_name or args.dataset
     checkpoint: dict | None = None
+    if args.resume_state:
+        resume_path = Path(args.resume_state).expanduser().resolve()
+        if resume_path.is_file():
+            with resume_path.open("rb") as handle:
+                checkpoint = pickle.load(handle)
+        else:
+            raise FileNotFoundError(f"HF resume state not found: {resume_path}")
+    checkpoint_path = (
+        Path(args.checkpoint_state).expanduser().resolve()
+        if args.checkpoint_state
+        else None
+    )
+    if args.interactive_checkpoints and checkpoint_path is None:
+        parser.error("--interactive-checkpoints requires --checkpoint-state")
     emitted_rows = 0
     consecutive_failures = 0
     reconnects = 0
@@ -127,6 +163,28 @@ def main() -> None:
                 checkpoint = stream.state_dict()
                 emitted_rows += 1
                 consecutive_failures = 0
+                if args.interactive_checkpoints:
+                    command = sys.stdin.readline().strip().upper()
+                    if command not in {"ACK", "CHECKPOINT", "STOP"}:
+                        raise RuntimeError(
+                            f"Invalid parent command {command!r} for {source_name}"
+                        )
+                    if command in {"CHECKPOINT", "STOP"}:
+                        assert checkpoint_path is not None
+                        atomic_pickle(checkpoint_path, checkpoint)
+                        sys.stdout.write(
+                            json.dumps(
+                                {
+                                    "_control": "checkpoint_saved",
+                                    "rows_emitted_this_process": emitted_rows,
+                                },
+                                sort_keys=True,
+                            )
+                            + "\n"
+                        )
+                        sys.stdout.flush()
+                    if command == "STOP":
+                        return
         except StopIteration:
             return
         except Exception as error:

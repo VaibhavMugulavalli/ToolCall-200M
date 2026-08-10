@@ -1,0 +1,110 @@
+{
+  "dataset_name": "toolcall_4b_pretraining_corpus",
+  "phase": 2,
+  "approval_status": "approved",
+  "approved_at": "2026-08-08",
+  "seed": 20260807,
+  "vocab_size": 32000,
+  "sequence_length": 512,
+  "global_prediction_tokens_per_step": 32768,
+  "prediction_token_target": 4000000000,
+  "actual_prediction_tokens": 4000022528,
+  "optimizer_steps": 122071,
+  "train_tokens": 4007835072,
+  "validation_general_tokens": 5000000,
+  "validation_structured_tokens": 2000000,
+  "shard_tokens": 10000000,
+  "min_document_chars": 120,
+  "max_document_tokens": 16384,
+  "general_validation_selection_fraction": 0.01,
+  "tokenizer_sha256": "427581f5bf5a38ab9ce5b8900fead0780baae72cdef5e0b1761da6349302ff2b",
+  "audit_binding": {
+    "stage1_config_sha256": "e3c09361026adf650cf20de250f723e00bf612e91ef666bea01ad122d1150b59",
+    "capacity_summary_sha256": "adfcd41fd2464b79a34c88be538bb75546dbabdf92ea2ab36b375e5f0386c9ca",
+    "finite_source_shortfall_tokens": 284764427,
+    "shortfall_fill_policy": {
+      "general_fineweb_edu": 0.8,
+      "codeparrot_clean_permissive": 0.2
+    }
+  },
+  "source_build_order": [
+    "structured_openapi",
+    "api_tool_docs",
+    "synthetic_tool_actions",
+    "general_fineweb_edu",
+    "codeparrot_clean_permissive"
+  ],
+  "approved_allocations": {
+    "general_fineweb_edu": 2632512585,
+    "codeparrot_clean_permissive": 658128146,
+    "structured_openapi": 400783507,
+    "api_tool_docs": 197553288,
+    "synthetic_tool_actions": 118857546
+  },
+  "sources": [
+    {
+      "name": "general_fineweb_edu",
+      "category": "clean_english_general",
+      "kind": "huggingface",
+      "dataset": "HuggingFaceFW/fineweb-edu",
+      "subset": "sample-10BT",
+      "split": "train",
+      "text_field": "text",
+      "finite": false,
+      "target_tokens": 2632512585,
+      "revision": "87f09149ef4734204d70ed1d046ddc9ca3f2b8f9",
+      "exclude_general_validation": true,
+      "license_note": "FineWeb-Edu sample; retain the upstream ODC-By attribution and Common Crawl provenance."
+    },
+    {
+      "name": "codeparrot_clean_permissive",
+      "category": "code",
+      "kind": "huggingface",
+      "dataset": "codeparrot/codeparrot-clean",
+      "subset": null,
+      "split": "train",
+      "text_field": "content",
+      "finite": false,
+      "target_tokens": 658128146,
+      "revision": "35a59fb025bc0a102f7d96eac09d145b896d487b",
+      "license_field": "license",
+      "allowed_licenses": [
+        "mit",
+        "apache-2.0",
+        "bsd-3-clause",
+        "bsd-2-clause",
+        "isc",
+        "cc0-1.0",
+        "unlicense"
+      ],
+      "license_note": "CodeParrot Clean rows filtered to the listed permissive licenses; retain per-row upstream provenance."
+    },
+    {
+      "name": "structured_openapi",
+      "category": "structured_text",
+      "kind": "openapi_raw",
+      "finite": true,
+      "target_tokens": 400783507,
+      "revision": "f04b8d0bcd39c52e1cf3ad7a5fe744709832ae49",
+      "license_note": "OpenAPI views from the pinned APIs-guru directory; audit and retain each definition's upstream provenance."
+    },
+    {
+      "name": "api_tool_docs",
+      "category": "api_docs_tool_schemas",
+      "kind": "openapi_docs",
+      "finite": true,
+      "target_tokens": 197553288,
+      "revision": "f04b8d0bcd39c52e1cf3ad7a5fe744709832ae49",
+      "license_note": "Deterministic documentation derived from pinned OpenAPI definitions."
+    },
+    {
+      "name": "synthetic_tool_actions",
+      "category": "task_action_instruction",
+      "kind": "openapi_actions",
+      "finite": true,
+      "target_tokens": 118857546,
+      "revision": "f04b8d0bcd39c52e1cf3ad7a5fe744709832ae49",
+      "license_note": "Deterministic call, clarification, and no-call examples derived from pinned OpenAPI operations."
+    }
+  ]
+}
