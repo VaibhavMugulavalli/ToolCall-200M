@@ -1,0 +1,6 @@
+source,category,finite,configured_cap_tokens,audited_unique_tokens,provisional_allocation_tokens,provisional_fraction
+general_fineweb_edu,clean_english_general,False,2404701043,,2632512585,0.6568415460485296
+codeparrot_clean_permissive,code,False,601175261,,658128146,0.16421038644975458
+structured_openapi,structured_text,True,400783507,636325158,400783507,0.09999999995009774
+api_tool_docs,api_docs_tool_schemas,True,400783507,197553288,197553288,0.049291770856582796
+synthetic_tool_actions,task_action_instruction,True,200391754,118857546,118857546,0.02965629669503526

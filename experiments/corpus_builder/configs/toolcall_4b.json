@@ -1,0 +1,97 @@
+{
+  "dataset_name": "toolcall_4b_pretraining_corpus",
+  "seed": 20260807,
+  "vocab_size": 32000,
+  "sequence_length": 512,
+  "global_prediction_tokens_per_step": 32768,
+  "prediction_token_target": 4000000000,
+  "train_tokens": 4007835072,
+  "validation_general_tokens": 5000000,
+  "validation_structured_tokens": 2000000,
+  "validation_fraction": 0.00125,
+  "shard_tokens": 10000000,
+  "min_document_chars": 120,
+  "max_document_tokens": 16384,
+  "progress_every_tokens": 50000000,
+  "openapi_revision": "f04b8d0bcd39c52e1cf3ad7a5fe744709832ae49",
+  "capacity_policy": {
+    "finite_source_weights_are_caps": true,
+    "shortfall_fill_sources": {
+      "general_fineweb_edu": 0.8,
+      "codeparrot_clean_permissive": 0.2
+    },
+    "requires_capacity_audit": true
+  },
+  "category_weights": {
+    "clean_english_general": 0.60,
+    "code": 0.15,
+    "structured_text": 0.10,
+    "api_docs_tool_schemas": 0.10,
+    "task_action_instruction": 0.05
+  },
+  "sources": [
+    {
+      "name": "general_fineweb_edu",
+      "category": "clean_english_general",
+      "kind": "huggingface",
+      "dataset": "HuggingFaceFW/fineweb-edu",
+      "subset": "sample-10BT",
+      "split": "train",
+      "text_field": "text",
+      "weight": 0.60,
+      "finite": false,
+      "revision": "87f09149ef4734204d70ed1d046ddc9ca3f2b8f9",
+      "license_note": "FineWeb-Edu sample; retain the upstream ODC-By attribution and Common Crawl provenance."
+    },
+    {
+      "name": "codeparrot_clean_permissive",
+      "category": "code",
+      "kind": "huggingface",
+      "dataset": "codeparrot/codeparrot-clean",
+      "subset": null,
+      "split": "train",
+      "text_field": "content",
+      "weight": 0.15,
+      "finite": false,
+      "revision": "35a59fb025bc0a102f7d96eac09d145b896d487b",
+      "license_field": "license",
+      "allowed_licenses": [
+        "mit",
+        "apache-2.0",
+        "bsd-3-clause",
+        "bsd-2-clause",
+        "isc",
+        "cc0-1.0",
+        "unlicense"
+      ],
+      "license_note": "CodeParrot Clean rows filtered to the listed permissive licenses; retain per-row upstream provenance."
+    },
+    {
+      "name": "structured_openapi",
+      "category": "structured_text",
+      "kind": "openapi_raw",
+      "weight": 0.10,
+      "finite": true,
+      "revision": "f04b8d0bcd39c52e1cf3ad7a5fe744709832ae49",
+      "license_note": "OpenAPI views from the pinned APIs-guru directory; audit and retain each definition's upstream provenance."
+    },
+    {
+      "name": "api_tool_docs",
+      "category": "api_docs_tool_schemas",
+      "kind": "openapi_docs",
+      "weight": 0.10,
+      "finite": true,
+      "revision": "f04b8d0bcd39c52e1cf3ad7a5fe744709832ae49",
+      "license_note": "Deterministic documentation derived from pinned OpenAPI definitions."
+    },
+    {
+      "name": "synthetic_tool_actions",
+      "category": "task_action_instruction",
+      "kind": "openapi_actions",
+      "weight": 0.05,
+      "finite": true,
+      "revision": "f04b8d0bcd39c52e1cf3ad7a5fe744709832ae49",
+      "license_note": "Deterministic call, clarification, and no-call examples derived from pinned OpenAPI operations."
+    }
+  ]
+}
