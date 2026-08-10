@@ -1,0 +1,6 @@
+artifacts/tokenizer/*.model
+artifacts/tokenizer/*.vocab
+outputs/*
+!outputs/.gitkeep
+__pycache__/
+*.pyc
