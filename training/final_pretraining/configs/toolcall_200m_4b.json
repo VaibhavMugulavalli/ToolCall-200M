@@ -1,0 +1,69 @@
+{
+  "run_name": "toolcall_200m_pretrain_4b_seed42",
+  "model": {
+    "vocab_size": 32000,
+    "sequence_length": 2048,
+    "num_layers": 24,
+    "num_heads": 12,
+    "num_kv_heads": 4,
+    "hidden_size": 768,
+    "intermediate_size": 2048,
+    "activation": "swiglu",
+    "rope_base": 10000.0,
+    "rms_norm_epsilon": 1e-5,
+    "dropout": 0.0,
+    "tie_embeddings": false,
+    "gradient_checkpointing": true,
+    "expected_parameter_count": 200184576
+  },
+  "data": {
+    "train_patterns": [
+      "train_shard_*.bin",
+      "train/shards/*.bin"
+    ],
+    "validation_general_patterns": [
+      "validation_general*.bin",
+      "validation_general/shards/*.bin"
+    ],
+    "validation_structured_patterns": [
+      "validation_structured*.bin",
+      "validation_structured/shards/*.bin"
+    ],
+    "tokenizer_patterns": [
+      "toolcall_spm_32k.model",
+      "tokenizer/toolcall_spm_32k.model"
+    ],
+    "token_dtype": "uint16",
+    "expected_train_source_tokens": 4007835072,
+    "expected_validation_general_tokens": 5000000,
+    "expected_validation_structured_tokens": 2000000
+  },
+  "training": {
+    "expected_world_size": 2,
+    "micro_batch_size_per_gpu": 2,
+    "gradient_accumulation_steps": 32,
+    "minimum_prediction_tokens": 4000000000,
+    "max_learning_rate": 0.0003,
+    "minimum_learning_rate": 0.00003,
+    "warmup_fraction": 0.02,
+    "weight_decay": 0.1,
+    "adam_beta1": 0.9,
+    "adam_beta2": 0.95,
+    "adam_epsilon": 1e-8,
+    "gradient_clip": 1.0,
+    "seed": 42,
+    "log_every_steps": 5,
+    "evaluate_every_steps": 250,
+    "validation_batches_per_rank": 8,
+    "final_validation_batches_per_rank": 64,
+    "local_checkpoint_interval_minutes": 60.0,
+    "hub_sync_interval_minutes": 300.0,
+    "keep_last_local_checkpoints": 2,
+    "max_session_minutes": 675.0
+  },
+  "tracking": {
+    "wandb_project": "toolcall-200m-pretraining",
+    "wandb_run_name": "ToolCall-200M 4B pretraining",
+    "hub_checkpoint_path": "resume"
+  }
+}
