@@ -1,0 +1,43 @@
+{
+  "dataset_name": "ToolCall-SFT-v1",
+  "seed": 42,
+  "context_length": 2048,
+  "source_dataset": "Salesforce/xlam-function-calling-60k",
+  "source_split": "train",
+  "target_total": 150000,
+  "split_targets": {
+    "train": 135000,
+    "validation": 7500,
+    "test": 7500
+  },
+  "category_targets": {
+    "valid_call": 60000,
+    "missing_required_fields": 30000,
+    "no_applicable_tool": 22500,
+    "confusable_tools": 15000,
+    "schema_constraints": 15000,
+    "injection_resistance": 7500
+  },
+  "pilot_targets": {
+    "valid_call": 400,
+    "missing_required_fields": 200,
+    "no_applicable_tool": 150,
+    "confusable_tools": 100,
+    "schema_constraints": 100,
+    "injection_resistance": 50
+  },
+  "max_tools_per_prompt": 6,
+  "near_duplicate_hamming_distance": 2,
+  "max_generation_rounds": 12,
+  "output_decisions": [
+    "call",
+    "ask_clarification",
+    "no_call"
+  ],
+  "output_keys": [
+    "decision",
+    "tool_name",
+    "arguments",
+    "missing_required_fields"
+  ]
+}

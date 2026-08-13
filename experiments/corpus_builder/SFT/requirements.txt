@@ -1,0 +1,4 @@
+datasets==3.6.0
+huggingface-hub==0.31.4
+sentencepiece==0.2.0
+tqdm==4.67.1
